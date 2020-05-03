@@ -7,6 +7,7 @@ The final project for COMP755.
 ```
 pip install -r requirements.txt
 ```
+3. Download our synthetic dataset [here](https://github.com/nrewkowski/COMP755FinalProject)
 
 ## Usage
 1. Finetune pretrained inception-v3 using our data.
