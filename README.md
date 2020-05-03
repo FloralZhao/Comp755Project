@@ -20,7 +20,7 @@ Inference using finetuned model
 python inference_finetune.py
 ```
 
-2. Inference using model pretrained on ImageNet or finetuned on our data.
+2. Inference using model pretrained on ImageNet.
 ```
 python inference.py --gpu 0
 ```
