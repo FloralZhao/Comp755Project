@@ -45,16 +45,17 @@ def main():
     data_loader = DataLoader(gaze_dataset, batch_size=8, shuffle=True, num_workers=8, drop_last=True)
 
 
-    model = inception(config.num_classes, config.feature_extract, use_pretrained=True)
-    model.to(device)
-    model.load_state_dict(torch.load(os.path.join('./checkpoints', f'best_model_{gaze_dataset.data_type}.pth.tar')))
-    model.eval()
-
-    # model = torch.hub.load('pytorch/vision:v0.5.0', 'inception_v3', pretrained=True)
-    # print("Initialize model...")
-    # model = models.inception_v3(pretrained=True)
-    # model.eval()
+    # model = inception(config.num_classes, config.feature_extract, use_pretrained=True)
     # model.to(device)
+    # model.load_state_dict(torch.load(os.path.join('./checkpoints', f'best_model_{gaze_dataset.data_type}.pth.tar')))
+    # model.eval()
+
+
+    print("Initialize model...")
+    # model = torch.hub.load('pytorch/vision:v0.5.0', 'inception_v3', pretrained=True)
+    model = models.inception_v3(pretrained=True)
+    model.eval()
+    model.to(device)
 
     criterion = nn.CrossEntropyLoss()
     criterion.to(device)
