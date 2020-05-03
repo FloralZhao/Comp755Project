@@ -7,6 +7,7 @@ import glob
 import torch
 from torch.utils.data import Dataset, DataLoader
 from torchvision import transforms
+from mapping import nick_labels, imagenet_labels_text, imagenet_labels_index, mapping
 
 import pdb
 
@@ -19,10 +20,10 @@ data_types = ['data_random_crop_2',
                  'data_random_original',
                  'data_spline_original']
 
-classes = ['wall', 'door', 'book', 'mug', 'picture frame', 'sliding doors', 'curtain',
-           'shelves', 'plant', 'plate', 'vase', 'floor lamp', 'wooden floor', 'tv',
-           'couch', 'coat hook', 'coffee table', 'light switch', 'statue', 'power outlet',
-           'floor moulding', 'desk lamp', 'ceiling light', 'coat hook backing', 'carpet']
+# classes = ['wall', 'door', 'book', 'mug', 'picture frame', 'sliding doors', 'curtain',
+#            'shelves', 'plant', 'plate', 'vase', 'floor lamp', 'wooden floor', 'tv',
+#            'couch', 'coat hook', 'coffee table', 'light switch', 'statue', 'power outlet',
+#            'floor moulding', 'desk lamp', 'ceiling light', 'coat hook backing', 'carpet']
 
 class GazeDetect(Dataset):
     def __init__(self, type, root_dir='/playpen/dongxuz1/gaze_object_detection/dataset', transform=None):
@@ -31,8 +32,8 @@ class GazeDetect(Dataset):
         self.data_type = type
 
         self.root_dir = os.path.join(root_dir, type)
-        self.classes = classes
-        self.class_map = dict(zip(self.classes, range(len(self.classes))))
+        self.class_map = mapping
+
         if transform is None:
             if self.data_type.endswith('original'):
                 self.transform = transforms.Compose([
@@ -48,7 +49,14 @@ class GazeDetect(Dataset):
                 ])
         else:
             self.transform = transform
-        self.images = glob.glob(os.path.join(self.root_dir, '*.png'))
+
+        image_list = glob.glob(os.path.join(self.root_dir, '*.png'))
+        self.images = []
+        for image in image_list:
+            img_name = os.path.basename(image)
+            label_name = img_name.split('_')[1][1:-1]
+            if label_name in nick_labels:
+                self.images.append(image)
 
     def __len__(self):
         return len(self.images)

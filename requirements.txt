@@ -5,4 +5,4 @@ scikit-image
 torch==1.2.0
 torchvision
 matplotlib==3.0.2
-
+xlrd==1.2.0
