@@ -17,6 +17,7 @@ matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 import os
 import argparse
+import math
 
 import GazeDetect_finetune
 import config
@@ -203,8 +204,11 @@ def main():
 
 
     print("Initializing Datasets and Dataloaders...")
-    gaze_dtaset = GazeDetect_finetune.GazeDetect(type='data_random_gaussian')
-    trainset, valset = random_split(gaze_dtaset, [4000, 817])
+    gaze_dtaset = GazeDetect_finetune.GazeDetect(type='data_random_gaussian_2')
+    total_len = len(gaze_dtaset)
+    train_len = math.ceil(0.1 * total_len)
+    val_len = total_len - train_len
+    trainset, valset = random_split(gaze_dtaset, [train_len, val_len])
     train_dataloader = DataLoader(trainset, batch_size=config.batch_size, shuffle=True, num_workers=8, drop_last=True)
     # val_dataset = GazeDetect.GazeDetect(type='data_random_crop_3')
     val_dataloader = DataLoader(valset, batch_size=config.batch_size, shuffle=True, num_workers=8, drop_last=True)
