@@ -203,7 +203,7 @@ def main():
 
 
     print("Initializing Datasets and Dataloaders...")
-    gaze_dtaset = GazeDetect_finetune.GazeDetect(type='data_random_crop_2')
+    gaze_dtaset = GazeDetect_finetune.GazeDetect(type='data_random_gaussian')
     trainset, valset = random_split(gaze_dtaset, [4000, 817])
     train_dataloader = DataLoader(trainset, batch_size=config.batch_size, shuffle=True, num_workers=8, drop_last=True)
     # val_dataset = GazeDetect.GazeDetect(type='data_random_crop_3')

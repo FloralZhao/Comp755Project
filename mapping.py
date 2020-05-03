@@ -11,3 +11,4 @@ imagenet_labels_text = [x.split(" ")[-1] for x in imagenet_labels]
 imagenet_labels_index = [int(x.split(" ")[-2]) for x in imagenet_labels]
 
 mapping = dict(zip(nick_labels, imagenet_labels_index))
+imagenet_mapping = dict(zip(imagenet_labels_index, imagenet_labels_text))
