@@ -5,7 +5,7 @@ import torch.nn as nn
 import torch.optim as optim
 import torchvision
 from torchvision import transforms, models
-from torch.utils.data import DataLoader
+from torch.utils.data import DataLoader, random_split
 import torch.backends.cudnn as cudnn
 
 import time
@@ -203,10 +203,11 @@ def main():
 
 
     print("Initializing Datasets and Dataloaders...")
-    train_dataset = GazeDetect.GazeDetect(type='data_random_crop_2')
-    train_dataloader = DataLoader(train_dataset, batch_size=config.batch_size, shuffle=True, num_workers=8, drop_last=True)
-    val_dataset = GazeDetect.GazeDetect(type='data_random_crop_3')
-    val_dataloader = DataLoader(val_dataset, batch_size=config.batch_size, shuffle=True, num_workers=8, drop_last=True)
+    gaze_dtaset = GazeDetect.GazeDetect(type='data_random_crop_2')
+    trainset, valset = random_split(gaze_dtaset, [2000, 830])
+    train_dataloader = DataLoader(trainset, batch_size=config.batch_size, shuffle=True, num_workers=8, drop_last=True)
+    # val_dataset = GazeDetect.GazeDetect(type='data_random_crop_3')
+    val_dataloader = DataLoader(valset, batch_size=config.batch_size, shuffle=True, num_workers=8, drop_last=True)
     dataloaders_dict = {'train': train_dataloader, 'val': val_dataloader}
 
 
@@ -216,7 +217,7 @@ def main():
     criterion = nn.CrossEntropyLoss()
 
     model_ft, hist = train_model(model_ft, dataloaders_dict, criterion, optimizer_ft, scheduler_ft, device, num_epochs=config.num_epochs, is_inception=(config.model_name=="inception"))
-    torch.save(model_ft.state_dict(), f'./{cpt_dir}/best_model_{train_dataset.data_type}.pth.tar')
+    torch.save(model_ft.state_dict(), f'./{cpt_dir}/best_model_{gaze_dtaset.data_type}.pth.tar')
 
     ohist = [h.cpu().numpy() for h in hist]
     plt.title("Validation Accuracy vs. Number of Training Epochs")
