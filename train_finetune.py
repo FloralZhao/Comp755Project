@@ -18,7 +18,7 @@ import matplotlib.pyplot as plt
 import os
 import argparse
 
-import GazeDetect
+import GazeDetect_finetune
 import config
 
 
@@ -203,8 +203,8 @@ def main():
 
 
     print("Initializing Datasets and Dataloaders...")
-    gaze_dtaset = GazeDetect.GazeDetect(type='data_random_crop_2')
-    trainset, valset = random_split(gaze_dtaset, [2000, 830])
+    gaze_dtaset = GazeDetect_finetune.GazeDetect(type='data_random_crop_2')
+    trainset, valset = random_split(gaze_dtaset, [4000, 817])
     train_dataloader = DataLoader(trainset, batch_size=config.batch_size, shuffle=True, num_workers=8, drop_last=True)
     # val_dataset = GazeDetect.GazeDetect(type='data_random_crop_3')
     val_dataloader = DataLoader(valset, batch_size=config.batch_size, shuffle=True, num_workers=8, drop_last=True)
@@ -226,7 +226,7 @@ def main():
     plt.plot(range(1, config.num_epochs + 1), ohist)
     plt.ylim((0, 1.))
     plt.xticks(np.arange(1, config.num_epochs + 1, 1.0))
-    plt.savefig('./fig.png')
+    plt.savefig(f'./fig_{gaze_dtaset.data_type}.png')
 
 if __name__ == '__main__':
     main()
