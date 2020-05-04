@@ -21,6 +21,10 @@ def parse_args():
                         help='GPUs to use',
                         default='0',
                         type=str)
+    parser.add_argument('-d', '--dataset',
+                        help='Dataset to use',
+                        default='realisticrendering_extraprops',
+                        type=str)
     args = parser.parse_args()
     return args
 
@@ -40,7 +44,7 @@ def main():
 
     #### load image data
     # mini-batches of 3-channel RGB images of shape (3 x H x W), where H and W are expected to be at least 299.
-    gaze_dataset = GazeDetect.GazeDetect(type='data_random_foveat')
+    gaze_dataset = GazeDetect.GazeDetect(type=args.dataset)
     data_loader = DataLoader(gaze_dataset, batch_size=8, shuffle=True, num_workers=8, drop_last=True)
 
 

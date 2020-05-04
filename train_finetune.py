@@ -28,6 +28,12 @@ def parse_args():
     parser.add_argument('--gpu',
                         default='0',
                         type=str)
+    parser.add_argument('-d', '--dataset',
+                        default='realisticrendering_extraprops',
+                        type=str)
+    parser.add_argument('--cpt',
+                        default='./checkpoints',
+                        type=str)
     args = parser.parse_args()
     return args
 
@@ -187,7 +193,7 @@ def main():
     cudnn.deterministic = False
     cudnn.enabled = True
 
-    cpt_dir = './checkpoints'
+    cpt_dir = args.cpt
     if not os.path.exists(cpt_dir):
         os.mkdir(cpt_dir)
 
@@ -204,7 +210,7 @@ def main():
 
 
     print("Initializing Datasets and Dataloaders...")
-    gaze_dtaset = GazeDetect_finetune.GazeDetect(type='data_random_gaussian_2')
+    gaze_dtaset = GazeDetect_finetune.GazeDetect(type=args.dataset)
     total_len = len(gaze_dtaset)
     train_len = math.ceil(0.9 * total_len)
     val_len = total_len - train_len
