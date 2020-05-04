@@ -7,7 +7,7 @@ import glob
 import torch
 from torch.utils.data import Dataset, DataLoader
 from torchvision import transforms
-from mapping import nick_labels, imagenet_labels_text, imagenet_labels_index, mapping
+from mapping import nick_labels, mapping_v1
 
 import pdb
 
@@ -28,7 +28,7 @@ class GazeDetect(Dataset):
         self.data_type = type
 
         self.root_dir = os.path.join(root_dir, type)
-        self.class_map = mapping
+        self.class_map = mapping_v1
 
         if transform is None:
             if self.data_type.endswith('original'):
