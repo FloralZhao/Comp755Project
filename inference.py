@@ -40,7 +40,7 @@ def main():
 
     #### load image data
     # mini-batches of 3-channel RGB images of shape (3 x H x W), where H and W are expected to be at least 299.
-    gaze_dataset = GazeDetect.GazeDetect(type='data_random_gaussian_2')
+    gaze_dataset = GazeDetect.GazeDetect(type='data_random_foveat')
     data_loader = DataLoader(gaze_dataset, batch_size=8, shuffle=True, num_workers=8, drop_last=True)
 
 
