@@ -60,10 +60,20 @@ def get_gaze(name):
 
 
 def main():
-    dir_name = '../dataset/data_random_original'
-    crop_dir = '../dataset/data_random_crop_3'
-    gaussian_dir = '../dataset/data_random_gaussian_3'
-    foveat_dir = '../dataset/data_random_foveat'
+    root = '../dataset'
+    dir_name = os.path.join(root, 'realisticrendering_extraprops')
+
+    crop_dir = os.path.join(root, 'realisticrendering_extraprops_crop_3')
+    gaussian_dir = os.path.join(root, 'realisticrendering_extraprops_gaussian_3')
+    foveat_dir = os.path.join(root, 'realisticrendering_extraprops_foveat')
+    if not os.path.exists(crop_dir):
+        os.makedirs(crop_dir)
+    if not os.path.exists(gaussian_dir):
+        os.makedirs(gaussian_dir)
+    if not os.path.exists(foveat_dir):
+        os.makedirs(foveat_dir)
+        
+    
     files = os.listdir(dir_name)
     for name in files:
         image_name = os.path.join(dir_name, name)
@@ -73,11 +83,11 @@ def main():
 
         image_cropped = crop(image, gaze, scale=3)
         image_gaussian = gaussian_blur(image, gaze, scale=3)
-        image_foveated = foveated_render(image, gaze)
+        #image_foveated = foveated_render(image, gaze)
 
         cv2.imwrite(os.path.join(crop_dir, name), image_cropped)
         cv2.imwrite(os.path.join(gaussian_dir, name), image_gaussian)
-        cv2.imwrite(os.path.join(foveat_dir, name), image_foveated)
+        #cv2.imwrite(os.path.join(foveat_dir, name), image_foveated)
 
         # cv2.imshow("image_cropped", image_cropped)
         # cv2.waitKey()
