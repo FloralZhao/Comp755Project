@@ -25,7 +25,7 @@ classes = ['wall', 'door', 'book', 'mug', 'picture frame', 'sliding doors', 'cur
            'floor moulding', 'desk lamp', 'ceiling light', 'coat hook backing', 'carpet']
 
 class GazeDetect(Dataset):
-    def __init__(self, type, root_dir='/playpen/dongxuz1/gaze_object_detection/dataset', transform=None):
+    def __init__(self, type, root_dir='/playpen/connylu/gaze_object_detection/dataset', transform=None):
 
         assert type in data_types, f"Invalid data type {type}."
         self.data_type = type
