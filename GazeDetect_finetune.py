@@ -11,18 +11,32 @@ from torchvision import transforms
 import pdb
 
 
-data_types = ['data_random_crop_2',
-                 'data_random_crop_3',
-                 'data_random_foveat',
-                 'data_random_gaussian_2',
-                 'data_random_gaussian_3',
-                 'data_random_original',
-                 'data_spline_original']
+# data_types = ['data_random_crop_2',
+#                  'data_random_crop_3',
+#                  'data_random_foveat',
+#                  'data_random_gaussian_2',
+#                  'data_random_gaussian_3',
+#                  'data_random_original',
+#                  'data_spline_original']
+#
+# classes = ['wall', 'door', 'book', 'mug', 'picture frame', 'sliding doors', 'curtain',
+#            'shelves', 'plant', 'plate', 'vase', 'floor lamp', 'wooden floor', 'tv',
+#            'couch', 'coat hook', 'coffee table', 'light switch', 'statue', 'power outlet',
+#
 
-classes = ['wall', 'door', 'book', 'mug', 'picture frame', 'sliding doors', 'curtain',
-           'shelves', 'plant', 'plate', 'vase', 'floor lamp', 'wooden floor', 'tv',
-           'couch', 'coat hook', 'coffee table', 'light switch', 'statue', 'power outlet',
-           'floor moulding', 'desk lamp', 'ceiling light', 'coat hook backing', 'carpet']
+data_types = ['realisticrendering_extraprops_crop_3',
+              'realisticrendering_extraprops_crop_4',
+              'realisticrendering_extraprops_gaussian_3',
+              'realisticrendering_extraprops_gaussian_4',
+              'realisticrendering_extraprops_foveat',
+              'realisticrendering_extraprops_original']
+
+classes = ['floor', 'curtain', 'bucket', 'tv', 'shelves', 'picture frame', 'chair', 'book',
+           'sliding doors', 'ceiling light', 'floor lamp', 'blinds', 'coat hook', 'door',
+           'box', 'potato', 'pineapple', 'desk lamp', 'statue', 'lamp', 'plant', 'vase',
+           'squash', 'floor moulding', 'barrel', 'screwdriver', 'cutter', 'plate', 'toilet',
+           'mug', 'light switch', 'power outlet', 'stove', 'couch', 'coffee table', 'bathtub',
+           'watermelon', 'cup', 'carpet']
 
 class GazeDetect(Dataset):
     def __init__(self, type, root_dir='/playpen/connylu/gaze_object_detection/dataset', transform=None):

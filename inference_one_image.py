@@ -28,7 +28,7 @@ def main():
     #### load image data
     # mini-batches of 3-channel RGB images of shape (3 x H x W), where H and W are expected to be at least 299.
     ### TODO: specify your test file name
-    ### filename = ???
+    filename = './dog.jpg'
 
     input_image = Image.open(filename)
     preprocess = transforms.Compose([
